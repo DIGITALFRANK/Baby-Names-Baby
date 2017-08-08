@@ -1,15 +1,3 @@
-// const parse_json = require(fs);
-
-// parse_json.readFile('./baby-names.json', function (err, data) {
-//     if (err) {
-//         console.log(err)
-//         throw err
-//     }
-//     console.log(data)
-// });
-
-// const data = JSON.parse(baby-names.json);
-
 const fs =  require('fs');
 
 fs.readFile('./baby-names.csv', function (err, data) {
@@ -19,11 +7,16 @@ fs.readFile('./baby-names.csv', function (err, data) {
     }
     // console.log(data.toString('utf-8'));
     var parsedData = data.toString('utf-8');
-    console.log(parsedData);
-
-    // fs.writeFile('baby-name-copy.cvs', parseData, function (err) {
-    //     if (err) {
-    //         console.log(err)
-    //     }
-    // })
+    var result = parsedData.split('\n').slice(1).map(function(intel) {
+        var pieceOfData = intel.split(',');
+        return {
+            birthyear: parseInt(pieceOfData[0]),
+            gender: pieceOfData[1],
+            ethnicity: pieceOfData[2],
+            name: pieceOfData[3],
+            count: parseInt(pieceOfData[4]),
+            rank: parseInt(pieceOfData[5]),
+        }
+    });
+    console.log(result[0]);
 });
